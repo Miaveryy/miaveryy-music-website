@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="icon" type="image/png" href="https://i.postimg.cc/bJkJSjcQ/android-chrome-192x192.png">
+
+  <title>Miaveryy Music</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --fg: #e6eef8;
+      --royal: #000000;
+    }
+    * { box-sizing: border-box; margin:0; padding:0 }
+    html, body { height:100%; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: sans-serif;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background-color: #000000;
+    }
+
+    /* Loader overlay */
+    #loader {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: var(--royal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 1s ease, visibility 1s ease;
+      visibility: visible;
+    }
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-text {
+      color: rgba(255, 255, 255, 0.685);
+      font-size: 1rem;
+      letter-spacing: 1em;
+      position: relative;
+    }
+    .loading-text::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background: white;
+      animation: underlineAnim 2s linear forwards;
+    }
+    @keyframes underlineAnim {
+      to { width: 100%; }
+    }
+
+    /* Background */
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://images.pexels.com/photos/34728966/pexels-photo-34728966.jpeg") center/cover no-repeat;
+      opacity: 0.85;
+      animation: zoomMove 20s infinite linear;
+      z-index: 0;
+    }
+    @keyframes zoomMove {
+      0%   { transform: scale(0.9) translate(0, 0); }
+      25%  { transform: scale(1.01) translate(-10px, -10px); }
+      50%  { transform: scale(1.005) translate(10px, -5px); }
+      75%  { transform: scale(1.01) translate(-5px, 10px); }
+      100% { transform: scale(0.9) translate(0, 0); }
+    }
+
+    /* Main content */
+    #main {
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 2;
+      position: relative;
+    }
+    #main.visible {
+      opacity: 1;
+    }
+
+    .name {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2rem;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+    .name p {
+        font-family: Candara Light;
+       letter-spacing: 0.8em;
+       opacity: 0.8;
+      font-size: 60px;
+    }
+     .listen {
+    width: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    font-family: "Candara", sans-serif;
+    letter-spacing: 0.2em;
+  }
+
+  .listen a {
+    color: #fff; /* keep icons white */
+    transition: transform 0.3s;
+  }
+
+  .listen a:hover {
+    transform: scale(1.3); /* only size increase */
+  }
+    
+  .menu-btn{position:fixed;top:20px;right:20px;width:30px;height:22px;cursor:pointer;z-index:1001}
+  .menu-btn div{height:3px;background:#fff;margin:6px 0;transition:.3s}
+  .menu-btn.active div:first-child{transform:rotate(45deg) translate(3.8px,3.8px)}
+  .menu-btn.active div:last-child{transform:rotate(-45deg) translate(3.8px,-3.8px)}
+
+  /* Main page content */
+  .content{height:100vh;display:flex;justify-content:center;align-items:center;font-size:2em}
+
+  /* Dropdown layer */
+  .dropdown{
+    position:fixed;top:-100%;left:0;width:100%;height:100%;
+    background:#010101;color:#fff;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    font-size:2em;transition:top 0.5s ease;
+    z-index:1000;
+  }
+  .dropdown.active{top:0;} /* slide down */
+.dropdown{
+  position:fixed;top:-100%;left:0;width:100%;height:100%;
+  background:#010101;color:#fff;transition:top .5s ease;
+  display:flex;flex-direction:column;z-index:1000;
+}
+.dropdown.active{top:0;}
+
+nav{
+  background:#111;padding:15px;display:flex;justify-content:center;gap:40px;
+  border-bottom:1px solid #222;
+}
+nav a{
+  color:#fff;text-decoration:none;font-size:1em;position:relative;padding-bottom:5px;
+}
+nav a::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:rgba(36, 78, 61, 0.763);transition:.3s;
+}
+nav a:hover::after{width:100%;}
+nav a.active::after{width:100%;}
+
+.page-content{flex:1;display:flex;justify-content:center;align-items:center;text-align:center}
+section{display:none;max-width:700px;padding:20px;}
+section.active{display:block;}
+section h2{font-size:2em;color:rgba(38, 98, 74, 0.516);margin-bottom:15px;}
+
+footer{
+  background:#111;padding:15px;text-align:center;font-size:.9em;border-top:1px solid #222;
+}
+
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+ 
+   <div class="menu-btn" id="btn">
+  <div></div><div></div>
+</div>
+  <div id="loader">
+    <div class="loading-text">LOADING</div>
+  </div>
+
+  <div id="main">
+    <div class="name">
+      <p><a href="https://linktr.ee/miaveryy" target="_blank" style="text-decoration: none;color: white;">MIAVERYY</a></p>
+      
+    </div>
+  </div>
+  <div style="font-family: Candara; font-size: 30px;letter-spacing: 0.7em;color: rgb(255, 255, 255);position: fixed;bottom: 25%;right: 27%;">FIND ME ON<br><br></div>
+ <div class="listen">
+    <a href="https://soundcloud.com/miaveryy" target="_blank">
+      <i class="fa-brands fa-soundcloud fa-xl"></i>
+    </a>
+     <a href="https://www.youtube.com/channel/UCk-Wxb0isdkPWOxcfUiWUOw" target="_blank">
+      <i class="fa-brands fa-youtube fa-xl"></i>
+    </a>
+    <a href="https://instagram.com/janeyeetan/" target="_blank">
+      <i class="fa-brands fa-instagram fa-xl"></i>
+    </a>
+  </div>
+  
+</div> <div class="dropdown" id="dropdownLayer">
+  <!-- Navbar -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#blog">Blog</a>
+    <a href="#links">Links</a>
+    <a href="#albums">Albums</a>
+  </nav>
+
+  <!-- Sections -->
+  <div class="page-content">
+    <section id="about" class="active">
+       <h2 style="font-size:36px;margin-bottom:20px;letter-spacing:1px;text-align:center;background:linear-gradient(90deg,#bb86fc,#03dac6);-webkit-background-clip:text;color:transparent;">About Me</h2>
+    <p style="font-size:18px;line-height:1.7;">Miaveryy is a composer who does music for film, games and media. 
+      She taps on her imagination to make music and always fits it to the mood and tone of the scene. Miaveryy uses instrumental tones to create atmosphere, catchy hooks and lines that tingle your senses
+    </p>
+  </section>
+
+    <section id="blog">
+      <h2>Blog</h2>
+      <p><iframe src="https://drive.google.com/file/d/15dwzKDaCJx72Uly3YtlM_oI0iEXZonKe/preview" width="640" height="480" allow="autoplay"></iframe></p>
+    </section>
+
+    <section id="links">
+      <h2>Links</h2>
+      <p>Spotify · YouTube · Facebook · Trello · Blog</p>
+    </section>
+
+    <section id="albums">
+      <h2>Collection of Albums</h2>
+      <p>Feature your albums, projects, or artwork here.</p>
+    </section>
+  </div>
+
+
+</div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+        document.getElementById('main').classList.add('visible');
+      }, 3000);
+    });
+    const btn=document.getElementById("btn"),
+        drop=document.getElementById("dropdownLayer");
+  btn.onclick=()=>{
+    btn.classList.toggle("active");
+    drop.classList.toggle("active");
+  } ;
+  const links=document.querySelectorAll("nav a"),
+      sections=document.querySelectorAll(".page-content section");
+
+links.forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    links.forEach(l=>l.classList.remove("active"));
+    sections.forEach(s=>s.classList.remove("active"));
+
+    link.classList.add("active");
+    document.querySelector(link.getAttribute("href")).classList.add("active");
+  });
+});
+    const bgMusic = new Audio("https://soundcloud.com/miaveryy/bleak?si=d99adad0bd1246b7a341880ad4acf8c6&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"); // replace with your file
+    bgMusic.loop = true;   // repeat forever
+    bgMusic.volume = 0;    // start muted
+    bgMusic.play();        // autoplay (works because it's muted)
+
+    // Gradually fade in volume
+    let vol = 0;
+    const fade = setInterval(() => {
+      if (vol < 0.5) {   // target volume (50%)
+        vol += 0.01;
+        bgMusic.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200); // increase every 200ms
+
+  </script>
+</body>
+</html>
