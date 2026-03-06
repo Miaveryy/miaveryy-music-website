@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="icon" type="image/png" href="https://i.postimg.cc/bJkJSjcQ/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" href="https://github.com/Miaveryy/miaveryy-music-website/blob/main/star.png?raw=true">
 
   <link
     href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
@@ -467,9 +467,31 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      transition: transform 0.4s ease, filter 0.4s ease;
       cursor: pointer;
+
+      /* Dark overlay */
+      transition: transform 0.4s ease, filter 0.4s ease, background 0.4s ease;
+    }
+
+    .music-tile::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      /* 50% dark overlay */
+      transition: background 0.4s ease;
+      border-radius: inherit;
+      /* match rounded corners if any */
+      z-index: 1;
+    }
+
+    /* Remove overlay on hover */
+    .music-tile:hover::before {
+      background: rgba(0, 0, 0, 0);
+      /* fully clear */
     }
 
     .music-tile:hover {
@@ -477,11 +499,15 @@
       z-index: 2;
     }
 
+    /* Keep text on top */
     .music-tile span {
+      position: relative;
+      /* above overlay */
       color: white;
       font-size: 2rem;
       font-weight: bold;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      z-index: 2;
     }
 
     .warm {
@@ -643,7 +669,7 @@
 
       <h2 class="gradient-text">Pricing</h2>
       <p>$200 per first minute of audio<br>
-      $100 increment per minute after that.</p>
+        $150 increment per minute after that.</p>
     </div>
   </section>
 
