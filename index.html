@@ -379,6 +379,7 @@
       padding: 150px 20px 100px;
       display: flex;
       justify-content: center;
+      flex-direction: column;
       align-items: center;
       text-align: center;
 
@@ -414,6 +415,24 @@
     .music-content {
       position: relative;
       z-index: 3;
+      text-align: center;
+    }
+
+    .music-content p {
+      text-shadow:
+        0 0 20px #000,
+        0 0 40px #795cff,
+        0 0 60px #795cff;
+      color: #fff;
+      /* ensure white text */
+    }
+
+    .music-reel {
+      position: relative;
+      z-index: 3;
+      max-width: 650px;
+      width: 100%;
+      margin: 10px auto;
     }
 
     #about {
@@ -423,7 +442,7 @@
     /* solid color or another image */
     #music {
       position: relative;
-      height: :100vh;
+      height: 100vh;
       overflow: hidden;
     }
 
@@ -470,15 +489,15 @@
     }
 
     .cultured {
-      background-image: url("images/cultured-homies.jpg");
+      background-image: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/commissin_compressed%20(1).png?raw=true");
     }
 
     .gaming {
-      background-image: url("images/gaming-cove.jpg");
+      background-image: url("https://raw.githubusercontent.com/Miaveryy/miaveryy-music-website/refs/heads/main/anime-gamer-girl-purple-lit-room-playing-video-games_1282444-142975.avif");
     }
 
     .indulgence {
-      background-image: url("images/indulgence-mood.jpg");
+      background-image: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/360_F_891656146_FXEhmuVqWWD7XQyEQ0mAMI9TAoz04DcO.webp?raw=true");
     }
 
     #contact {
@@ -593,9 +612,11 @@
   <section id="music" class="scroll-section">
     <div class="music-content">
       <h2 class="gradient-text">Music</h2>
-      <p>Pick a mood or category, or simply you find title interesting.</p>
+      <p>Pick a mood or category, or simply if you find title interesting.</p>
+    </div>
 
-      <!-- ReelCrafter reel: Miaveryy's Music -->
+    <!-- ReelCrafter reel: Miaveryy's Music -->
+    <div class="music-reel">
       <iframe class="reel-player" width="150%" height="800" scrolling="no" frameborder="no"
         src="https://play.reelcrafter.com/embed/85809efa-2973-4c22-950f-7cad74b74f21">
       </iframe>
@@ -614,7 +635,15 @@
   <section id="contact" class="scroll-section">
     <div>
       <h2 class="gradient-text">Contact</h2>
-      <p>miaveryy@email.com</p>
+      <p>Email: Dracofalco13@gmail.com<br>
+        Discord: Miaveryy<br>
+        Telegram: Miaveryy<br>
+        X: https://x.com/_Doraco
+      </p><br><br><br>
+
+      <h2 class="gradient-text">Pricing</h2>
+      <p>$200 per first minute of audio<br>
+      $100 increment per minute after that.</p>
     </div>
   </section>
 
