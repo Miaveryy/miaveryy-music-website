@@ -123,6 +123,13 @@
       }
     }
 
+    #music iframe {
+      max-width: 900px;
+      width: 100%;
+      margin-top: 40px;
+      border-radius: 12px;
+    }
+
     #about p {
       margin-bottom: 1em;
       font-size: 22px;
@@ -290,6 +297,7 @@
       background: linear-gradient(90deg, #bb86fc, #03dac6);
       -webkit-background-clip: text;
       color: transparent;
+      z-index: 3;
     }
 
     .page-content p {
@@ -380,13 +388,97 @@
       background-repeat: no-repeat;
     }
 
+    .reel-player {
+      border-radius: 12px;
+
+      /* glow frame */
+      box-shadow:
+        0 0 20px rgba(120, 100, 255, 0.6),
+        0 0 40px rgba(120, 100, 255, 0.4),
+        0 0 60px rgba(120, 100, 255, 0.2);
+
+      /* animation starting state */
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    /* when visible */
+    .reel-player.show {
+      opacity: 1;
+      transform: translateY(0);
+      z-index: 2;
+      position: relative;
+    }
+
+    .music-content {
+      position: relative;
+      z-index: 3;
+    }
+
     #about {
-       background: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/enchanted-forest-scene-stockcake.webp?raw=true") center/cover no-repeat;
+      background: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/enchanted-forest-scene-stockcake.webp?raw=true") center/cover no-repeat;
     }
 
     /* solid color or another image */
     #music {
-      background: #222;
+      position: relative;
+      height: :100vh;
+      overflow: hidden;
+    }
+
+    .music-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+
+      z-index: 1;
+    }
+
+    .music-tile {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: transform 0.4s ease, filter 0.4s ease;
+      cursor: pointer;
+    }
+
+    .music-tile:hover {
+      transform: scale(1.05);
+      z-index: 2;
+    }
+
+    .music-tile span {
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .warm {
+      background-image: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/sunset-beach-candle-stockcake.webp?raw=true");
+    }
+
+    .cultured {
+      background-image: url("images/cultured-homies.jpg");
+    }
+
+    .gaming {
+      background-image: url("images/gaming-cove.jpg");
+    }
+
+    .indulgence {
+      background-image: url("images/indulgence-mood.jpg");
     }
 
     #contact {
@@ -402,8 +494,10 @@
     .about-text {
       flex: 7;
       /* 70% */
-      background: rgba(0, 0, 0, 0.3); /* slightly dark for contrast */
-      backdrop-filter: blur(10px); /* blur the background behind it */
+      background: rgba(0, 0, 0, 0.3);
+      /* slightly dark for contrast */
+      backdrop-filter: blur(10px);
+      /* blur the background behind it */
       padding: 20px;
       border-radius: 15px;
 
@@ -416,7 +510,7 @@
     .about-text.show {
       opacity: 1;
       transform: translateY(0);
-    }   
+    }
 
     .about-image {
       flex: 3;
@@ -477,9 +571,11 @@
       <div class="about-text">
         <h2 class="gradient-text">About</h2>
         <p>Hi, I’m Miaveryy 🎹✨, a composer and music creator passionate about crafting immersive soundscapes for films,
-          games, and animation. I love blending emotion, atmosphere, and storytelling into every note, whether it’s a delicate piano piece or
+          games, and animation. I love blending emotion, atmosphere, and storytelling into every note, whether it’s a
+          delicate piano piece or
           a dynamic cinematic track. Music is my way of connecting worlds and telling stories without words.</p>
-        <p>I do many genres, including emotional storytelling, sci-fi and game-ish music. My tools are often electronic synths and bass, piano and guitar.</p>
+        <p>I do many genres, including emotional storytelling, sci-fi and game-ish music. My tools are often electronic
+          synths and bass, piano and guitar.</p>
         <p>I make music that matches the story, scene and mood. If you ask, I will deliver. </p>
       </div>
 
@@ -495,9 +591,23 @@
   </section>
 
   <section id="music" class="scroll-section">
-    <div>
+    <div class="music-content">
       <h2 class="gradient-text">Music</h2>
-      <p>Albums, projects and collaborations coming soon.</p>
+      <p>Pick a mood or category, or simply you find title interesting.</p>
+
+      <!-- ReelCrafter reel: Miaveryy's Music -->
+      <iframe class="reel-player" width="150%" height="800" scrolling="no" frameborder="no"
+        src="https://play.reelcrafter.com/embed/85809efa-2973-4c22-950f-7cad74b74f21">
+      </iframe>
+    </div>
+
+    <div class="music-grid">
+      <div class="music-tile warm"><span>Warm Lights</span></div>
+      <div class="music-tile cultured"><span>Cultured Homies</span></div>
+      <div class="music-tile gaming"><span>Gaming Cove</span></div>
+      <div class="music-tile indulgence"><span>Indulgence Mood</span></div>
+    </div>
+
     </div>
   </section>
 
@@ -507,6 +617,8 @@
       <p>miaveryy@email.com</p>
     </div>
   </section>
+
+
 
   <script>
     window.addEventListener('load', () => {
@@ -533,7 +645,7 @@
     }, 200); // increase every 200ms
 
 
-  const aboutText = document.querySelector(".about-text");
+    const aboutText = document.querySelector(".about-text");
 
     window.addEventListener("scroll", () => {
       const elementTop = aboutText.getBoundingClientRect().top;
@@ -543,9 +655,20 @@
         aboutText.classList.add("show");
       }
     });
+
+    const reel = document.querySelector(".reel-player");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          reel.classList.add("show");
+        }
+      });
+    });
+
+    observer.observe(reel);
   </script>
 </body>
 
 
 </html>
-
