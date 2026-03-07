@@ -5,7 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="icon" type="image/png" href="https://github.com/Miaveryy/miaveryy-music-website/blob/main/star.png?raw=true">
+  <link rel="icon" type="image/png"
+    href="https://github.com/Miaveryy/miaveryy-music-website/blob/main/star.png?raw=true">
 
   <link
     href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
@@ -126,7 +127,6 @@
     #music iframe {
       max-width: 900px;
       width: 100%;
-      margin-top: 40px;
       border-radius: 12px;
     }
 
@@ -408,7 +408,7 @@
     .reel-player.show {
       opacity: 1;
       transform: translateY(0);
-      z-index: 2;
+      z-index: 5;
       position: relative;
     }
 
@@ -420,19 +420,18 @@
 
     .music-content p {
       text-shadow:
-        0 0 20px #000,
-        0 0 40px #795cff,
-        0 0 60px #795cff;
+        0 0 10px #000,
+        0 0 15px #795cff,
+        0 0 20px #795cff;
       color: #fff;
       /* ensure white text */
     }
 
     .music-reel {
       position: relative;
-      z-index: 3;
-      max-width: 650px;
+      z-index: 5;
+      max-width: 600px;
       width: 100%;
-      margin: 10px auto;
     }
 
     #about {
@@ -524,6 +523,18 @@
 
     .indulgence {
       background-image: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/360_F_891656146_FXEhmuVqWWD7XQyEQ0mAMI9TAoz04DcO.webp?raw=true");
+    }
+
+    /* hide reels initially */
+    .music-reel {
+      display: none;
+      margin-top: 5px;
+      z-index: 2;
+    }
+
+    /* visible reel */
+    .music-reel.show {
+      display: block;
     }
 
     #contact {
@@ -642,9 +653,31 @@
     </div>
 
     <!-- ReelCrafter reel: Miaveryy's Music -->
-    <div class="music-reel">
-      <iframe class="reel-player" width="150%" height="800" scrolling="no" frameborder="no"
+    <!-- WARM LIGHTS REEL -->
+    <div class="music-reel music-reel-warm">
+      <iframe class="reel-player" width="100%" height="450" scrolling="no" frameborder="no"
         src="https://play.reelcrafter.com/embed/85809efa-2973-4c22-950f-7cad74b74f21">
+      </iframe>
+    </div>
+
+    <!-- CULTURED HOMIES REEL -->
+    <div class="music-reel music-reel-homies">
+      <iframe class="reel-player" width="100%" height="450" scrolling="no" frameborder="no"
+        src="https://play.reelcrafter.com/embed/e13aa50c-2cbb-45be-9109-d3421041dbc6">
+      </iframe>
+    </div>
+
+    <!-- GAMING COVE REEL -->
+    <div class="music-reel music-reel-gaming">
+      <iframe class="reel-player" width="100%" height="400" scrolling="no" frameborder="no"
+        src="https://play.reelcrafter.com/embed/f40b4e7e-dc09-4f5d-9990-28ce4a31cac7">
+      </iframe>
+    </div>
+
+    <!-- INDULGENCE REEL -->
+    <div class="music-reel music-reel-indulgence">
+      <iframe class="reel-player" width="100%" height="400" scrolling="no" frameborder="no"
+        src="https://play.reelcrafter.com/embed/8c719d54-331c-4349-b83d-c089c058c304">
       </iframe>
     </div>
 
@@ -683,23 +716,6 @@
       }, 10);
     });
 
-    const bgMusic = new Audio("https://soundcloud.com/miaveryy/bleak?si=d99adad0bd1246b7a341880ad4acf8c6&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"); // replace with your file
-    bgMusic.loop = true;   // repeat forever
-    bgMusic.volume = 0;    // start muted
-    bgMusic.play();        // autoplay (works because it's muted)
-
-    // Gradually fade in volume
-    let vol = 0;
-    const fade = setInterval(() => {
-      if (vol < 0.5) {   // target volume (50%)
-        vol += 0.01;
-        bgMusic.volume = vol;
-      } else {
-        clearInterval(fade);
-      }
-    }, 200); // increase every 200ms
-
-
     const aboutText = document.querySelector(".about-text");
 
     window.addEventListener("scroll", () => {
@@ -722,6 +738,57 @@
     });
 
     observer.observe(reel);
+
+    const tiles = document.querySelectorAll(".music-tile");
+
+    const reels = {
+      warm: document.querySelector(".music-reel-warm"),
+      cultured: document.querySelector(".music-reel-homies"),
+      gaming: document.querySelector(".music-reel-gaming"),
+      indulgence: document.querySelector(".music-reel-indulgence")
+    };
+
+    const musicContent = document.querySelector(".music-content");
+
+    function hideReels() {
+      Object.values(reels).forEach(reel => {
+        reel.classList.remove("show");
+        const iframe = reel.querySelector(".reel-player");
+        iframe.classList.remove("show");
+      });
+
+      // Reset header back to original
+      musicContent.style.transition = "transform 0.7s ease";
+      musicContent.style.transform = "translateY(0)";
+    }
+
+    tiles.forEach(tile => {
+      tile.addEventListener("click", () => {
+        hideReels();
+
+        let selectedKey = null;
+        if (tile.classList.contains("warm")) selectedKey = "warm";
+        if (tile.classList.contains("cultured")) selectedKey = "cultured";
+        if (tile.classList.contains("gaming")) selectedKey = "gaming";
+        if (tile.classList.contains("indulgence")) selectedKey = "indulgence";
+
+        if (selectedKey) {
+          const selectedReel = reels[selectedKey];
+          selectedReel.classList.add("show");
+
+          const iframe = selectedReel.querySelector(".reel-player");
+
+          // Trigger reflow to allow transition
+          void iframe.offsetWidth;
+
+          iframe.classList.add("show"); // now slides up smoothly
+
+          // Move header up
+          musicContent.style.transition = "transform 1.2s ease";
+          musicContent.style.transform = "translateY(-30px)"; // adjust distance as needed
+        }
+      });
+    });
   </script>
 </body>
 
