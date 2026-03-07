@@ -391,9 +391,17 @@
 
     .reel-player {
       border-radius: 12px;
+
+      /* glow frame */
+      box-shadow:
+        0 0 20px rgba(120, 100, 255, 0.6),
+        0 0 40px rgba(120, 100, 255, 0.4),
+        0 0 60px rgba(120, 100, 255, 0.2);
+
+      /* animation starting state */
       opacity: 0;
       transform: translateY(80px);
-      transition: opacity 1s ease, transform 1s ease, box-shadow 0.5s ease;
+      transition: opacity 1s ease, transform 1s ease;
     }
 
     /* when visible */
@@ -402,10 +410,6 @@
       transform: translateY(0);
       z-index: 5;
       position: relative;
-      box-shadow:
-        0 0 20px rgba(120, 100, 255, 0.6),
-        0 0 40px rgba(120, 100, 255, 0.4),
-        0 0 60px rgba(120, 100, 255, 0.2);
     }
 
     .music-content {
@@ -429,7 +433,6 @@
       max-width: 600px;
       width: 100%;
     }
-
 
     #about {
       background: url("https://github.com/Miaveryy/miaveryy-music-website/blob/main/enchanted-forest-scene-stockcake.webp?raw=true") center/cover no-repeat;
@@ -650,27 +653,31 @@
     </div>
 
     <!-- ReelCrafter reel: Miaveryy's Music -->
+    <!-- WARM LIGHTS REEL -->
     <div class="music-reel music-reel-warm">
       <iframe class="reel-player" width="100%" height="450" scrolling="no" frameborder="no"
-        data-src="https://play.reelcrafter.com/embed/85809efa-2973-4c22-950f-7cad74b74f21">
+        src="https://play.reelcrafter.com/embed/85809efa-2973-4c22-950f-7cad74b74f21">
       </iframe>
     </div>
 
+    <!-- CULTURED HOMIES REEL -->
     <div class="music-reel music-reel-homies">
       <iframe class="reel-player" width="100%" height="450" scrolling="no" frameborder="no"
-        data-src="https://play.reelcrafter.com/embed/e13aa50c-2cbb-45be-9109-d3421041dbc6">
+        src="https://play.reelcrafter.com/embed/e13aa50c-2cbb-45be-9109-d3421041dbc6">
       </iframe>
     </div>
 
+    <!-- GAMING COVE REEL -->
     <div class="music-reel music-reel-gaming">
       <iframe class="reel-player" width="100%" height="400" scrolling="no" frameborder="no"
-        data-src="https://play.reelcrafter.com/embed/f40b4e7e-dc09-4f5d-9990-28ce4a31cac7">
+        src="https://play.reelcrafter.com/embed/f40b4e7e-dc09-4f5d-9990-28ce4a31cac7">
       </iframe>
     </div>
 
+    <!-- INDULGENCE REEL -->
     <div class="music-reel music-reel-indulgence">
       <iframe class="reel-player" width="100%" height="400" scrolling="no" frameborder="no"
-        data-src="https://play.reelcrafter.com/embed/8c719d54-331c-4349-b83d-c089c058c304">
+        src="https://play.reelcrafter.com/embed/8c719d54-331c-4349-b83d-c089c058c304">
       </iframe>
     </div>
 
@@ -767,33 +774,21 @@
 
         if (selectedKey) {
           const selectedReel = reels[selectedKey];
-          const iframe = selectedReel.querySelector(".reel-player");
-
-          // Only set src if not already set
-          if (!iframe.src) {
-            iframe.src = iframe.dataset.src;
-
-            // wait for iframe to finish loading
-            iframe.onload = () => {
-              iframe.classList.add("show"); // add glow + animation
-            };
-          } else {
-            iframe.classList.add("show");
-          }
-
           selectedReel.classList.add("show");
 
-          // Trigger reflow for smooth animation
-          void iframe.offsetWidth;
-          iframe.classList.add("show");
+          const iframe = selectedReel.querySelector(".reel-player");
 
-          // Move header up smoothly
+          // Trigger reflow to allow transition
+          void iframe.offsetWidth;
+
+          iframe.classList.add("show"); // now slides up smoothly
+
+          // Move header up
           musicContent.style.transition = "transform 1.2s ease";
-          musicContent.style.transform = "translateY(-30px)";
+          musicContent.style.transform = "translateY(-30px)"; // adjust distance as needed
         }
       });
     });
-
   </script>
 </body>
 
