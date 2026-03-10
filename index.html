@@ -99,7 +99,7 @@
     }
 
     #about div {
-      max-width: 80%;
+      max-width: 100%;
       /* takes up 80% of screen width */
       margin: 0 auto;
       /* centers it horizontally */
@@ -109,18 +109,19 @@
       /* more spacing between lines */
       color: #ffffff;
       /* white text */
-      padding: 20px 10px;
+      padding: 10px 5px;
       /* small padding for breathing room */
     }
 
     /* Make responsive for smaller screens */
     @media (max-width: 600px) {
-      #about>div {
+      #about div {
         max-width: 95%;
         /* almost full width on mobile */
         font-size: 0.9rem;
         /* slightly smaller text for mobile */
         padding: 15px 10px;
+        text-align: center;
       }
     }
 
@@ -154,6 +155,15 @@
       font-size: 60px;
     }
 
+    @media (max-width:768px) {
+
+      .name p {
+        font-size: 35px;
+        letter-spacing: 0.4em;
+      }
+
+    }
+
     .find-me-on {
       position: absolute;
       /* use absolute instead of fixed */
@@ -162,6 +172,14 @@
       font-size: 30px;
       letter-spacing: 0.7em;
       color: #ffffff;
+    }
+
+    @media (max-width:768px) {
+
+      .find-me-on {
+        font-size: 18px;
+        letter-spacing: 0.4em;
+      }
     }
 
     .listen {
@@ -176,6 +194,15 @@
       font-size: 2em;
       font-family: "Candara", sans-serif;
       letter-spacing: 0.2em;
+    }
+
+    @media (max-width:768px) {
+
+      .listen {
+        width: 100%;
+        max-width: 400px;
+      }
+
     }
 
     .listen a {
@@ -349,12 +376,29 @@
       z-index: 10;
     }
 
+    @media (max-width:768px) {
+
+      .top-menu {
+        gap: 15px;
+        font-size: 0.8rem;
+      }
+
+    }
+
     .top-menu a {
       color: white;
       text-decoration: none;
       font-size: 0.9em;
       letter-spacing: 0.2em;
       position: relative;
+    }
+
+    @media (max-width:768px) {
+
+      .top-menu a {
+        font-size: 0.6rem;
+      }
+
     }
 
     .top-menu a::after {
@@ -389,6 +433,14 @@
       background-repeat: no-repeat;
     }
 
+    @media (max-width:768px) {
+
+      .scroll-section {
+        padding: 120px 10px 60px;
+      }
+
+    }
+
     .reel-player {
       border-radius: 12px;
 
@@ -402,6 +454,14 @@
       opacity: 0;
       transform: translateY(80px);
       transition: opacity 1s ease, transform 1s ease;
+    }
+
+    @media (max-width:768px) {
+
+      .reel-player {
+        height: 250px;
+      }
+
     }
 
     /* when visible */
@@ -457,6 +517,15 @@
       grid-template-rows: 1fr 1fr;
 
       z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+
+      .music-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+
     }
 
     .music-tile {
@@ -547,6 +616,18 @@
       gap: 40px;
     }
 
+    @media (max-width:768px) {
+
+      .about-container {
+        flex-direction: column;
+      }
+
+      .about-image {
+        max-width: 300px;
+      }
+
+    }
+
     .about-text {
       flex: 7;
       /* 70% */
@@ -562,6 +643,15 @@
       transform: translateY(80px);
       transition: all 1s ease;
     }
+
+    @media (max-width:768px) {
+
+      #about .about-text p{
+        font-size: 18px;
+      }
+
+    }
+
 
     .about-text.show {
       opacity: 1;
@@ -626,20 +716,16 @@
       <!-- LEFT SIDE (70%) -->
       <div class="about-text">
         <h2 class="gradient-text">About</h2>
-        <p>Hi, I’m Miaveryy 🎹✨, a composer and music creator passionate about crafting immersive soundscapes for films,
-          games, and animation. I love blending emotion, atmosphere, and storytelling into every note, whether it’s a
-          delicate piano piece or
-          a dynamic cinematic track. Music is my way of connecting worlds and telling stories without words.</p>
-        <p>I do many genres, including emotional storytelling, sci-fi and game-ish music. My tools are often electronic
+        <p>Hi, I’m Miaveryy 🎹✨, a composer passionate about crafting immersive soundscapes for films,
+          games, and animation. I love adding music and storytelling into any media you wish, from setting the mood of a scene to enhancing storytelling, and to crafting the atmosphere of your game.</p>
+        <p>I am familiar with many genres, including heartwarming tracks, sci-fi and game music. My tools are often electronic
           synths and bass, piano and guitar.</p>
-        <p>I make music that matches the story, scene and mood. If you ask, I will deliver. </p>
+        <p>I <i>always</i> make music that matches the story, scene and mood. If you ask, I will deliver. </p>
       </div>
 
       <!-- RIGHT SIDE (30%) -->
       <div class="about-image">
-        <img
-          src="https://i.ibb.co/jksdX1Cf/shpc-doraco-by-gmlen-d9ijcag.png"
-          alt="Miaveryy portrait">
+        <img src="https://i.ibb.co/jksdX1Cf/shpc-doraco-by-gmlen-d9ijcag.png" alt="Miaveryy portrait">
         <!-- OR use background image instead -->
       </div>
 
@@ -655,14 +741,14 @@
     <!-- ReelCrafter reel: Miaveryy's Music -->
     <!-- WARM LIGHTS REEL -->
     <div class="music-reel music-reel-warm">
-      <iframe class="reel-player" width="100%" height="450" scrolling="no" frameborder="no"
+      <iframe class="reel-player" width="100%" height="400" scrolling="no" frameborder="no"
         src="https://play.reelcrafter.com/embed/85809efa-2973-4c22-950f-7cad74b74f21">
       </iframe>
     </div>
 
     <!-- CULTURED HOMIES REEL -->
     <div class="music-reel music-reel-homies">
-      <iframe class="reel-player" width="100%" height="450" scrolling="no" frameborder="no"
+      <iframe class="reel-player" width="100%" height="400" scrolling="no" frameborder="no"
         src="https://play.reelcrafter.com/embed/e13aa50c-2cbb-45be-9109-d3421041dbc6">
       </iframe>
     </div>
