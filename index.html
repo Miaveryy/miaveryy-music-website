@@ -99,7 +99,7 @@
     }
 
     #about div {
-      max-width: 100%;
+      max-width: 80%;
       /* takes up 80% of screen width */
       margin: 0 auto;
       /* centers it horizontally */
@@ -332,16 +332,6 @@
       margin: 0 auto;
     }
 
-    section {
-      display: none;
-      max-width: 100%;
-      padding: 20px;
-    }
-
-    section.active {
-      display: block;
-    }
-
     section h2 {
       font-size: 2em;
       color: rgba(38, 98, 74, 0.516);
@@ -459,7 +449,7 @@
     @media (max-width:768px) {
 
       .reel-player {
-        height: 250px;
+        height: 400px;
       }
 
     }
@@ -476,9 +466,26 @@
       position: relative;
       z-index: 3;
       text-align: center;
+
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      padding: 25px 35px;
+      border-radius: 15px;
+      max-width: 500px;
+
+      /* animation starting state */
+      opacity: 0;
+      transform: translateY(80px);
+      transition: all 1s ease;
+    }
+
+    .music-content.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .music-content p {
+      font-size: 12px;
       text-shadow:
         0 0 10px #000,
         0 0 15px #795cff,
@@ -583,7 +590,7 @@
     }
 
     .cultured {
-      background-image: url("https://i.ibb.co/TBHk3XXk/commissin-compressed-1.png");
+      background-image: url("https://i.ibb.co/q3MSyVpy/commissin-compressed-1-compressed.jpg");
     }
 
     .gaming {
@@ -646,7 +653,7 @@
 
     @media (max-width:768px) {
 
-      #about .about-text p{
+      #about .about-text p {
         font-size: 18px;
       }
 
@@ -668,6 +675,91 @@
       height: auto;
       border-radius: 20px;
       /* optional styling */
+    }
+
+    .awards-content {
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
+      padding: 60px 20px;
+
+      /* same animation style as other sections */
+      opacity: 0;
+      transform: translateY(80px);
+      transition: all 1s ease;
+    }
+
+    .awards-content.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .award-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .award-poster {
+      width: 500px;
+      border-radius: 6px;
+    }
+
+    @media (max-width:768px) {
+
+      .award-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .award-poster {
+        width: 250px;
+      }
+
+    }
+
+    .award-text h3 {
+      margin: 0;
+    }
+
+    .award-text p {
+      margin: 5px 0 0;
+    }
+
+    .awards-list {
+      margin-top: 30px;
+      display: grid;
+      gap: 20px;
+    }
+
+    .award-item {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .contact-info a {
+      color: #03dac6;
+      /* bright teal */
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      color: #00fff2;
+      /* slightly brighter when hovering */
+      text-decoration: underline;
+    }
+
+    .contact-info a:visited {
+      color: #03dac6;
+      /* keeps visited links from turning dark purple */
     }
   </style>
 </head>
@@ -717,15 +809,17 @@
       <div class="about-text">
         <h2 class="gradient-text">About</h2>
         <p>Hi, I’m Miaveryy 🎹✨, a composer passionate about crafting immersive soundscapes for films,
-          games, and animation. I love adding music and storytelling into any media you wish, from setting the mood of a scene to enhancing storytelling, and to crafting the atmosphere of your game.</p>
-        <p>I am familiar with many genres, including heartwarming tracks, sci-fi and game music. My tools are often electronic
+          games, and animation. I love adding music and storytelling into any media you wish, from setting the mood of a
+          scene to enhancing storytelling, and to crafting the atmosphere of your game.</p>
+        <p>I am familiar with many genres, including heartwarming tracks, sci-fi and game music. My tools are often
+          electronic
           synths and bass, piano and guitar.</p>
         <p>I <i>always</i> make music that matches the story, scene and mood. If you ask, I will deliver. </p>
       </div>
 
       <!-- RIGHT SIDE (30%) -->
       <div class="about-image">
-        <img src="https://i.ibb.co/jksdX1Cf/shpc-doraco-by-gmlen-d9ijcag.png" alt="Miaveryy portrait">
+        <img src="https://i.ibb.co/pB8GdNYM/shpc-doraco-by-gmlen-d9ijcag-compressed.jpg" alt="Miaveryy portrait">
         <!-- OR use background image instead -->
       </div>
 
@@ -735,7 +829,23 @@
   <section id="music" class="scroll-section">
     <div class="music-content">
       <h2 class="gradient-text">Music</h2>
-      <p>Pick a mood or category, or simply if you find title interesting.</p>
+      <p>
+        ↑ Tap a mood ↓ <br>
+      </p>
+
+      <!-- Back Button -->
+      <button id="back-button" style="
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: none;
+        background-color: #03dac6;
+        color: #000;
+        cursor: pointer;
+        display: none; /* hidden initially */
+        ">Back
+      </button>
     </div>
 
     <!-- ReelCrafter reel: Miaveryy's Music -->
@@ -777,18 +887,37 @@
     </div>
   </section>
 
-  <section id="contact" class="scroll-section">
-    <div>
-      <h2 class="gradient-text">Contact</h2>
-      <p>Email: Dracofalco13@gmail.com<br>
-        Discord: Miaveryy<br>
-        Telegram: Miaveryy<br>
-        X: https://x.com/_Doraco
-      </p><br><br><br>
+  <section id="awards" class="scroll-section">
+    <div class="awards-content">
+      <h2 class="gradient-text">Awards</h2>
+      <div class="awards-list">
 
-      <h2 class="gradient-text">Pricing</h2>
-      <p>$200 per first minute of audio<br>
-        $150 increment per minute after that.</p>
+        <div class="award-item">
+          <h3>Nominated Best Original Music</h3>
+          <p>Singapore Youth Film Festival - 2026 <br>
+            961081 <br>
+          </p>
+
+          <img src="https://i.ibb.co/6cMPvtTm/961081-final-portrait-jpg-1.jpg" class="award-poster">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="scroll-section">
+    <h2 class="gradient-text">Contact</h2>
+    <div class="contact-info">
+      <p>Email: <a href="mailto:Dracofalco13@gmail.com">dracofalco13@gmail.com</a></p>
+      <p>Discord: <a href="https://discord.com/users/177440102987857920" target="_blank">Miaveryy</a></p>
+      <p>Telegram: <a href="https://t.me/Miaveryy" target="_blank">Miaveryy</a></p>
+      <p>X/Twitter: <a href="https://x.com/_Doraco" target="_blank">https://x.com/_Doraco</a></p>
+    </div>
+    </div>
+    </p><br><br><br>
+
+    <h2 class="gradient-text">Pricing</h2>
+    <p>$200 per first minute of audio<br>
+      $150 increment per minute after that.</p>
     </div>
   </section>
 
@@ -836,6 +965,17 @@
 
     const musicContent = document.querySelector(".music-content");
 
+    window.addEventListener("scroll", () => {
+
+      const elementTop = musicContent.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+
+      if (elementTop < windowHeight - 100) {
+        musicContent.classList.add("show");
+      }
+
+    });
+
     function hideReels() {
       Object.values(reels).forEach(reel => {
         reel.classList.remove("show");
@@ -874,6 +1014,67 @@
           musicContent.style.transform = "translateY(-30px)"; // adjust distance as needed
         }
       });
+    });
+
+    const backButton = document.getElementById("back-button");
+
+    function hideReels() {
+      Object.values(reels).forEach(reel => {
+        reel.classList.remove("show");
+        const iframe = reel.querySelector(".reel-player");
+        iframe.classList.remove("show");
+      });
+
+      // Reset header back to original
+      musicContent.style.transition = "transform 0.7s ease";
+      musicContent.style.transform = "translateY(0)";
+
+      // Hide back button when no reels are visible
+      backButton.style.display = "none";
+    }
+
+    // Show back button when a reel is opened
+    tiles.forEach(tile => {
+      tile.addEventListener("click", () => {
+        hideReels(); // hide any previous reel
+
+        let selectedKey = null;
+        if (tile.classList.contains("warm")) selectedKey = "warm";
+        if (tile.classList.contains("cultured")) selectedKey = "cultured";
+        if (tile.classList.contains("gaming")) selectedKey = "gaming";
+        if (tile.classList.contains("indulgence")) selectedKey = "indulgence";
+
+        if (selectedKey) {
+          const selectedReel = reels[selectedKey];
+          selectedReel.classList.add("show");
+
+          const iframe = selectedReel.querySelector(".reel-player");
+          void iframe.offsetWidth; // trigger reflow
+          iframe.classList.add("show");
+
+          // Move header up
+          musicContent.style.transition = "transform 1.2s ease";
+          musicContent.style.transform = "translateY(-30px)";
+
+          // Show back button
+          backButton.style.display = "inline-block";
+        }
+      });
+    });
+
+    // Back button click hides reels
+    backButton.addEventListener("click", hideReels);
+
+    const awardsContent = document.querySelector(".awards-content");
+
+    window.addEventListener("scroll", () => {
+
+      const elementTop = awardsContent.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+
+      if (elementTop < windowHeight - 100) {
+        awardsContent.classList.add("show");
+      }
     });
   </script>
 </body>
