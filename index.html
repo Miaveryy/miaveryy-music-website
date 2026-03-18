@@ -62,7 +62,7 @@
       flex-direction: column;
       z-index: 9999;
       opacity: 1;
-      transition: opacity 1s ease, visibility 1s ease;
+      transition: opacity 1.5s ease, visibility 1.5s ease;
       visibility: visible;
     }
 
@@ -86,7 +86,7 @@
       height: 2px;
       width: 0;
       background: white;
-      animation: underlineAnim 0.1s linear forwards;
+      animation: underlineAnim 0.8s linear forwards;
     }
 
     @keyframes underlineAnim {
@@ -929,11 +929,10 @@
 
 
   <script>
-    window.addEventListener('load', () => {
+    window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         document.getElementById('loader').classList.add('hidden');
-        document.getElementById('main').classList.add('visible');
-      }, 10);
+      }, 1200);
     });
 
     const aboutText = document.querySelector(".about-text");
